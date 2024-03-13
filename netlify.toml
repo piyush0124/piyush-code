@@ -1,2 +1,26 @@
+# Global settings for the build & deploy process
 [build]
-  functions = "functions"
+  publish = "public" # Your output folder after build, e.g., "public" or "dist"
+  command = "echo 'Build commands could go here, like PHP linting or preprocessing if needed'"
+
+# Serverless Functions settings
+# Assuming your Node.js wrappers for PHP scripts are located in a directory named "functions"
+[functions]
+  directory = "functions"
+
+# Environment variables
+[build.environment]
+  NODE_VERSION = "20.9.0" # Specify the Node.js version you want to use
+
+# Example of a redirect rule to handle SPA routes or specific redirects
+[[redirects]]
+  from = "/*"
+  to = "/index.php"
+  status = 200
+
+# Headers (example: setting security headers for all HTML responses)
+[[headers]]
+  for = "*.html"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'"
+    X-Frame-Options = "DENY"
